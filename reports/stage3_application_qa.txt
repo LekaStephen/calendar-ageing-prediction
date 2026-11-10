@@ -1,0 +1,30 @@
+STAGE 3 APPLICATION DEVELOPMENT QA
+Date: 2026-11-08
+
+Implemented:
+- Four-tab Streamlit interface: Prediction, Data exploration, Model performance, About & limitations.
+- Model integration using the persisted RBF-SVR pipeline.
+- Input handling for storage duration in hours or days, converted to model days.
+- Input-domain checks inherited from the prediction service.
+- Warning for temperature/SOC combinations not among the 17 experimental conditions.
+- Observed condition trajectory exploration and nested grouped validation summary display.
+- Explicit caveats about condition-level data grain, limited groups, no external/cell-level validation, and point-estimate uncertainty.
+- Additional input-validation tests.
+
+Checks performed in this environment:
+- Python compileall for app.py, src/, and tests/: passed.
+- pytest: 6 passed.
+- Streamlit launch test: NOT RUN because Streamlit is not installed in this execution environment.
+- Browser/UI interaction test: NOT RUN.
+
+To run locally after installing requirements:
+1. python -m venv .venv
+2. Windows: .venv\\Scripts\\activate
+   macOS/Linux: source .venv/bin/activate
+3. pip install -r requirements.txt
+4. streamlit run app.py
+
+To run tests:
+pytest -q
+
+No claim is made that the Streamlit server or browser interface was launched or visually verified here.

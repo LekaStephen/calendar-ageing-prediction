@@ -1,0 +1,49 @@
+STAGE 5 — SAVED MODEL INFERENCE AND APPLICATION INTEGRATION VERIFICATION
+Date: 2026-11-10
+
+Scope
+- Verified the user-supplied Stage 4 package and its persisted RBF-SVR artefact.
+- No model retraining was performed.
+- Dataset remains the Naumann calendar-ageing dataset only.
+
+Artifact and schema checks
+- models/calendar_ageing_svr.joblib loaded successfully after user confirmed trusted provenance.
+- Loaded object type: scikit-learn Pipeline.
+- Pipeline steps: StandardScaler followed by SVR.
+- SVR parameters: C=100, epsilon=0.3, gamma=0.1.
+- Model feature_names_in_: storage_time_days, temperature_c, soc_pct.
+- Metadata feature order matches the fitted pipeline exactly.
+- Target: capacity_loss_pct.
+- Prediction service converts storage_time_hours to storage_time_days before inference.
+- Model metadata records 595 training rows and 17 condition groups.
+
+Representative saved-model inference checks
+- 25 °C, 50% SOC, 8,760 hours: loss 3.0817906778%; retention 96.9182093222%.
+- 40 °C, 50% SOC, 8,760 hours: loss 5.8346871784%; retention 94.1653128216%.
+- 60 °C, 50% SOC, 21,241 hours: loss 19.9639758051%; retention 80.0360241949%.
+- 0 °C, 50% SOC, 0 hours: loss -0.0898845260%; retention 100.0898845260%.
+- Negative loss at the zero-duration case is retained as the model output; it is not clipped. Interpret as a near-zero estimate affected by measurement variation, not physical capacity generation.
+
+Automated verification
+- pytest -q: 10 passed, 0 failed.
+- Python compilation of app.py, src/*.py, tests/*.py: passed.
+- Tests include saved model loading, metadata/schema agreement, representative inference regression checks, finite outputs, loss/retention identity, input validation and processed-data integrity.
+- Existing manifest hashes were checked before modifications; all ten listed source artefacts matched. Manifest regenerated for the updated QA package.
+
+Runtime environment used for verification
+- Python 3.13.5
+- scikit-learn 1.8.0
+- joblib 1.5.3
+- NumPy 2.3.5
+- pandas 2.2.3
+- pytest 9.0.2
+- Streamlit: not installed in this execution environment.
+
+Outstanding verification
+- Streamlit server launch and browser-based interaction test: NOT PERFORMED.
+- Visual layout, keyboard accessibility and responsive display: NOT TESTED.
+- Deployment and concurrent-user performance: NOT TESTED.
+- External dataset validation and physical-cell-level validation: NOT AVAILABLE and not claimed.
+
+Conclusion
+The persisted model loads and produces finite, reproducible predictions through the project's prediction service. Feature ordering, time conversion, metadata and capacity-retention calculation are consistent. Automated integration checks pass. This verifies the saved-model inference path, but does not yet constitute end-to-end browser or deployment acceptance testing.

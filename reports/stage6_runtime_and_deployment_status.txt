@@ -1,0 +1,19 @@
+STAGE 6 — RUNTIME AND DEPLOYMENT PREPARATION
+Date: 2026-11-10
+
+Completed
+- Re-ran Stage 5 automated integration suite: 10 passed, 0 failed.
+- Added GitHub Actions workflow for Python 3.11 dependency installation, compilation and pytest.
+- Added Streamlit server configuration.
+- Added Windows setup instructions, GitHub push instructions, Streamlit Community Cloud deployment steps and browser acceptance checklist.
+- Corrected the app's missing-model guidance so normal startup does not recommend retraining the trusted saved model.
+- Preserved the trained model, metadata, processed dataset and existing validation results.
+
+Environment limitation
+- Streamlit is not installed in the current execution environment.
+- Attempted to install Streamlit 1.50.0, but package installation could not reach PyPI because DNS/network access was unavailable.
+- Therefore Streamlit server startup, browser interaction, responsive layout, accessibility and cloud deployment remain NOT TESTED.
+- No GitHub push or cloud deployment was performed in this step.
+
+Required next action
+- Run the commands in DEPLOYMENT.md in a network-enabled environment, push to GitHub, allow GitHub Actions to complete, then perform the browser acceptance checklist.

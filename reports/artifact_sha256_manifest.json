@@ -1,0 +1,20 @@
+{
+  "python": "3.13.5",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "files": {
+    "app.py": "f2e10b70c8d05bffdfd47b2b351ffb11cadcf2d1b5595034fca5730459f5269a",
+    "src/prediction.py": "a83a690f9f6ea4e85abbe7f04d64bcc63ba39158385d72f1c97f3c814775e07d",
+    "src/data_loader.py": "f7b56b19f2fc514f17e0e524ae9a733f2e0588e46e4b5b23843481997ee2e967",
+    "src/train_model.py": "0c39873bae1e638cffbf0421fb032c517e2fe264886fa8d68216b3b2bb8fa3e4",
+    "models/calendar_ageing_svr.joblib": "baddbc46fd9a786f7e832a594589b8efb298901ccae592bcdaaee6f27bb77155",
+    "models/model_metadata.json": "3703060d4c195bdb8f9426a348a67e8586f1e8a20124983b878c33438ca715cb",
+    "data/processed/reconstructed_capacity_analysis.csv": "3c27af95d358b0d75fc2153dda9d78817844f13e0b367d9f7c7f803dc9bea3e4",
+    "data/source/DischargeCapacity.xlsx": "c684bdb2adc7314d7cf943b472068694e20425af8f84fbf249d5d7554dc7e3f0",
+    "reports/nested_grouped_summary_3_4_5fold.csv": "f59585d501ad03038a9f96bdb1bcbaf024daf466f3d7a0ddf8a8769c30dac73e",
+    "reports/stage4_testing_qa.txt": "f27775252657dcff2880e04d4c93743a8d26244be5e93f2ce3e63cf6f1b46a18",
+    "tests/test_prediction.py": "30f5ea0921e6f810608b1ca045459aaf6634cd007f092bdeff608cfa6830b28d",
+    "requirements.txt": "3ca4660aa1c4df64ab87f0d5bb8d0628948958b41c422753eebaf0b22f2534bd",
+    "reports/pytest_results.txt": "8480a5031f75d64c84f8647d593d3326e6b637cc5231089c185f2bb1f9c2f4aa",
+    "reports/stage5_integration_verification.txt": "a1e568d6af9902e50650102681b3b899f0c73770950ca5cfe3b7cb58b8174356"
+  }
+}

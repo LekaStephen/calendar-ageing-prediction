@@ -1,0 +1,25 @@
+{
+  "model": "RBF Support Vector Regression",
+  "features": [
+    "storage_time_days",
+    "temperature_c",
+    "soc_pct"
+  ],
+  "target": "capacity_loss_pct",
+  "target_definition": "100 * (initial_capacity_ah - capacity_ah) / initial_capacity_ah",
+  "time_unit": "days",
+  "temperature_unit": "degrees Celsius",
+  "soc_unit": "percent",
+  "selected_hyperparameters": {
+    "svr__C": 100,
+    "svr__epsilon": 0.3,
+    "svr__gamma": 0.1
+  },
+  "inner_grouped_cv_folds": 3,
+  "inner_selection_metric": "MAE (percentage points)",
+  "best_inner_grouped_mae_percentage_points": 0.7208951130776368,
+  "training_rows": 595,
+  "condition_groups": 17,
+  "source_workbook_sha256": "c684bdb2adc7314d7cf943b472068694e20425af8f84fbf249d5d7554dc7e3f0",
+  "note": "Final full-development-data fit for application inference; nested grouped out-of-fold scores remain the evaluation evidence. Not cell-level or external validation."
+}

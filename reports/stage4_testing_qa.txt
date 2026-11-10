@@ -1,0 +1,56 @@
+STAGE 4 — APPLICATION INTEGRATION AND QUALITY ASSURANCE
+Date: 2026-11-08
+
+Scope
+- Naumann et al. calendar-ageing dataset only; Oxford datasets excluded.
+- Application: local Streamlit web application.
+- Model: persisted RBF-SVR pipeline; Linear Regression remains the validation benchmark.
+- Features: storage duration (converted to days), temperature (°C), SOC (%).
+- Target: capacity loss (%); retention = 100 minus predicted loss.
+
+Automated checks executed
+1. Python compilation of app.py, src/, and tests/: PASSED.
+2. Prediction-service unit tests: PASSED.
+3. Input-boundary checks for temperature, SOC, and storage duration: PASSED.
+4. Non-finite input rejection: PASSED.
+5. Persisted model loading and finite prediction: PASSED.
+6. Capacity-loss plus capacity-retention identity: PASSED.
+7. Processed dataset integrity: PASSED (595 observations; 17 groups; 35 time observations per condition; 0–21,241 hours; no duplicate condition/time keys; negative capacity-loss observations retained).
+
+Test result
+- pytest: 8 passed; no failures.
+
+Representative inference smoke checks
+- 25 °C, 50% SOC, 8,760 hours: capacity loss 3.0818%; retention 96.9182%.
+- 40 °C, 50% SOC, 8,760 hours: capacity loss 5.8347%; retention 94.1653%.
+- 60 °C, 50% SOC, 21,241 hours: capacity loss 19.9640%; retention 80.0360%.
+- 0 °C, 50% SOC, 0 hours: predicted capacity loss -0.0899%; retention 100.0899%. Negative estimates are not clipped and should be interpreted as estimates near zero, not physical capacity generation.
+
+Validation metrics displayed by the app — four-fold nested grouped CV
+- RBF-SVR: MAE 0.9776 percentage points; RMSE 1.4858 percentage points; R² 0.8982.
+- Linear Regression: MAE 1.4986 percentage points; RMSE 2.1340 percentage points; R² 0.7900.
+The app offers 3-, 4-, and 5-fold grouped evaluation summaries. These are sensitivity schemes on the same 17 condition groups, not independent datasets.
+
+Not performed / outstanding
+- Streamlit server launch and browser interaction test: NOT PERFORMED because Streamlit is not installed in this execution environment.
+- Visual layout/accessibility testing: NOT PERFORMED.
+- Deployment test: NOT PERFORMED.
+- Concurrent-user performance: NOT TESTED.
+- External dataset validation and physical-cell-level validation: NOT AVAILABLE and not claimed.
+
+Interpretation safeguards
+- Predictions are point estimates; no calibrated prediction intervals are implemented.
+- Only the 17 observed temperature/SOC combinations are experimental conditions. Other combinations within marginal numeric ranges are not equivalent to tested conditions.
+- Prediction inputs are bounded by marginal data ranges, but marginal bounds do not ensure experimental support for every combination.
+- The supplied data support condition-level trajectories, not independent cell-level trajectories.
+- This is an academic research demonstrator, not a battery safety or deployment system.
+
+Reproduction commands
+  python -m venv .venv
+  .venv\Scripts\activate  (Windows)
+  pip install -r requirements.txt
+  pytest -q
+  streamlit run app.py
+
+Environment note
+The test run used the Python environment available to the build process. Exact versions can differ on a user's computer; install pinned requirements for controlled reproduction.
